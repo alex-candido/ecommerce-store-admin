@@ -1,5 +1,7 @@
-const SetupLayout = ({ children }: { children: React.ReactNode }) => {
+export default async function SetupLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return <>{children}</>;
-};
-
-export default SetupLayout;
+}

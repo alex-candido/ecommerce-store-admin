@@ -1,6 +1,6 @@
 import { UserButton } from '@clerk/nextjs';
 
-const SetupPage = () => {
+export default function SetupPage() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <div>
@@ -9,6 +9,4 @@ const SetupPage = () => {
       </div>
     </main>
   );
-};
-
-export default SetupPage;
+}
