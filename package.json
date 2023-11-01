@@ -15,6 +15,9 @@
   },
   "author": "Alex Cândido <alex.candido.tec@gmail.com>",
   "dependencies": {
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.0.0",
+    "lucide-react": "^0.291.0",
     "next": "14.0.1",
     "prisma": "^5.5.2",
     "react": "^18",
