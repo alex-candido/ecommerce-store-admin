@@ -27,6 +27,5 @@
     "tailwindcss": "^3.3.0",
     "eslint": "^8",
     "eslint-config-next": "14.0.1"
-  },
-  "repository": "git@github.com:alex-candido/ecommerce-store-frontend.git"
+  }
 }

@@ -28,5 +28,5 @@
     "eslint": "^8",
     "eslint-config-next": "14.0.1"
   },
-  "repository": "git@github.com:alex-candido/ecommerce-store-frontend.git"
+  "repository": "git@github.com:alex-candido/ecommerce-become-frontend.git"
 }
