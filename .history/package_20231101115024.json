@@ -11,7 +11,6 @@
     "start": "next start",
     "lint": "next lint"
   },
-  "author": "Alex Cândido <alex.candido.tec@gmail.com>",
   "dependencies": {
     "react": "^18",
     "react-dom": "^18",
@@ -27,6 +26,5 @@
     "tailwindcss": "^3.3.0",
     "eslint": "^8",
     "eslint-config-next": "14.0.1"
-  },
-  "repository": "git@github.com:alex-candido/ecommerce-store-frontend.git"
+  }
 }
