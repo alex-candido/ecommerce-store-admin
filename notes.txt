@@ -12,3 +12,7 @@
   - **Descrição**
     - Adicionando estrutura de diretórios, pastas e arquivos do projeto;
 
+- feature/creating-project-settings-structure
+  - **Descrição**
+    - Adicionando estrutura de configurações do projeto;
+
