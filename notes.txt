@@ -16,3 +16,11 @@
   - **Descrição**
     - Adicionando estrutura de configurações do projeto;
 
+- feature/creating-clerk-authentication-admin
+  - **Descrição**
+    - Adicionando estrutura de autenticação e gerenciamento de usuários com clerk.
+
+- feature/creating-modal-component-admin
+  - **Descrição**
+    - Adicionando estrutura de modal component shadcn/ui.
+
