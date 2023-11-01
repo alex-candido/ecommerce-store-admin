@@ -20,3 +20,7 @@
   - **Descrição**
     - Adicionando estrutura de autenticação e gerenciamento de usuários com clerk.
 
+- feature/creating-modal-component-admin
+  - **Descrição**
+    - Adicionando estrutura de modal component shadcn/ui.
+

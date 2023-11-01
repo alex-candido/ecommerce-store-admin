@@ -1,12 +1,14 @@
-import { Button } from '@/components/UI/button';
+import { UserButton } from '@clerk/nextjs';
 
-export default function Home() {
+const SetupPage = () => {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <div>
         <h1>Olá mundo!</h1>
-        <Button>Click</Button>
+        <UserButton afterSignOutUrl="/" />
       </div>
     </main>
   );
-}
+};
+
+export default SetupPage;
