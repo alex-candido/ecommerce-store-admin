@@ -170,7 +170,6 @@
   "[jsonc]": {
     "editor.defaultFormatter": "vscode.json-language-features"
   },
-  "workbench.editor.untitled.hint": "hidden",
   "workbench.colorTheme": "Aura Dark",
   "cSpell.words": [
     "Responsability",
