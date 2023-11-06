@@ -1,6 +1,7 @@
-import useStore from '@/actions/use-store';
 import { auth } from '@clerk/nextjs';
 import { redirect } from 'next/navigation';
+
+import useGetStore from '@/actions/use-get-store';
 
 export default async function SetupLayout({
   children,
@@ -13,7 +14,7 @@ export default async function SetupLayout({
     redirect('/sign-in');
   }
 
-  const { data: store } = await useStore(userId);
+  const store = await useGetStore({ userId });
 
   if (store) {
     redirect(`/${store.id}`);
