@@ -18,6 +18,19 @@ export const getFirstStoreByUser = async (userId: string): Promise<any> => {
   return store;
 };
 
+export const getAllStoresByUser = async (userId: string): Promise<any> => {
+  const store = await prismadb.store.findMany({
+    where: {
+      userId,
+    },
+  });
+
+  if (!store) {
+    console.log('Not return stores!');
+  }
+  return store;
+};
+
 export const getFirstStoreById = async ({
   userId,
   storeId,

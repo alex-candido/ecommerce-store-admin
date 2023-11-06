@@ -2,6 +2,7 @@ import { auth } from '@clerk/nextjs';
 import { redirect } from 'next/navigation';
 
 import useGetStore from '@/actions/use-get-store';
+import Navbar from '@/components/navbar';
 
 export default async function DashboardLayout({
   children,
@@ -22,5 +23,10 @@ export default async function DashboardLayout({
     redirect('/');
   }
 
-  return <>{children}</>;
+  return (
+    <>
+      <Navbar />
+      {children}
+    </>
+  );
 }
