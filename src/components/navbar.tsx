@@ -1,7 +1,7 @@
 import { UserButton, auth } from '@clerk/nextjs';
 import { redirect } from 'next/navigation';
 
-import useGetAllStore from '@/actions/use-get-all-store';
+import useGetAllStore from '@/actions/store/use-get-all-store';
 import { MainNav } from '@/components/main-nav';
 import StoreSwitcher from '@/components/store-switcher';
 

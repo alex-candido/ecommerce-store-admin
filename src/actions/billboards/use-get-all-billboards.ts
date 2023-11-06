@@ -1,14 +1,14 @@
 import { api } from '@/lib/fetcher';
 
 interface IUserStoreProps {
-  userId: string;
+  storeId: string;
 }
 
-const useGetAllStore = async ({
-  userId,
-}: IUserStoreProps): Promise<StoreData[] | undefined> => {
+const useGetAllBillboards = async ({
+  storeId,
+}: IUserStoreProps): Promise<BillboardData[]> => {
   try {
-    const url = `/api/stores/user?userId=${userId}`
+    const url = `/api/billboards/user?storeId=${storeId}`
     const { data } = await api.get(url)
 
     return data;
@@ -16,7 +16,8 @@ const useGetAllStore = async ({
     if (error instanceof Error) {
       console.log(error.message)
     }
+    return []
   }
 };
 
-export default useGetAllStore;
+export default useGetAllBillboards;
