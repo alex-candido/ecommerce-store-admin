@@ -6,7 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
 
-import { Button } from '@/components/UI/button';
+import { Button } from '@/components/ui/button';
 import {
   Form,
   FormControl,
@@ -14,9 +14,9 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/UI/form';
-import { Input } from '@/components/UI/input';
-import { Modal } from '@/components/UI/modal';
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { Modal } from '@/components/ui/modal';
 import { useStoreModal } from '@/hooks/use-store-modal';
 import { api } from '@/lib/fetcher';
 import { useState } from 'react';

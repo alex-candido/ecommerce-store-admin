@@ -3,7 +3,7 @@
 import { Check, ChevronsUpDown, PlusCircle, Store } from 'lucide-react';
 import * as React from 'react';
 
-import { Button } from '@/components/UI/button';
+import { Button } from '@/components/ui/button';
 import {
   Command,
   CommandEmpty,
@@ -12,12 +12,12 @@ import {
   CommandItem,
   CommandList,
   CommandSeparator,
-} from '@/components/UI/command';
+} from '@/components/ui/command';
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from '@/components/UI/popover';
+} from '@/components/ui/popover';
 import { useStoreModal } from '@/hooks/use-store-modal';
 import { cn } from '@/lib/utils';
 import { useParams, useRouter } from 'next/navigation';
