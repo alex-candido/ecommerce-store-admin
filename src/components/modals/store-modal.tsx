@@ -3,7 +3,6 @@
 import * as z from 'zod';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import axios from 'axios';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
 
@@ -19,6 +18,7 @@ import {
 import { Input } from '@/components/UI/input';
 import { Modal } from '@/components/UI/modal';
 import { useStoreModal } from '@/hooks/use-store-modal';
+import { api } from '@/lib/fetcher';
 import { useState } from 'react';
 
 const formSchema = z.object({
@@ -40,7 +40,7 @@ export const StoreModal = () => {
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       setLoading(true);
-      const response = await axios.post('/api/stores', values);
+      const response = await api.post('/api/stores', values);
       window.location.assign(`/${response.data.id}`);
     } catch (error) {
       toast.error('Something went wrong');
