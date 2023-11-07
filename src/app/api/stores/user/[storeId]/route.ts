@@ -1,7 +1,10 @@
-import { getFirstStoreById } from "@/db/store/get-return-store";
-import { NextRequest, NextResponse } from "next/server";
+import { getFirstStoreById } from '@/db/store/get-return-store';
+import { NextRequest, NextResponse } from 'next/server';
 
-export async function GET(req: NextRequest, { params }: { params: { storeId: string } }) {
+export async function GET(
+  req: NextRequest,
+  { params }: { params: { storeId: string } },
+) {
   try {
     const userId = await req.nextUrl.searchParams.get('userId');
 

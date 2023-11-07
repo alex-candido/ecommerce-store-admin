@@ -3,6 +3,6 @@ interface BillboardData {
   storeId: string;
   label: string;
   imageUrl: string;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: Date | string;
+  updatedAt: Date | string;
 }

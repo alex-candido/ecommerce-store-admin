@@ -1,4 +1,4 @@
-import { getAllBillboardsByStoreId } from "@/db/billboards/get-return-billboards";
+import { getAllBillboardsByStoreId } from "@/db/billboards/get-all-billboards";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {

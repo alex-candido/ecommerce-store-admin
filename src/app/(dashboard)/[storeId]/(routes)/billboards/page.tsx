@@ -1,24 +1,16 @@
-import { format } from 'date-fns';
+import { format, parseISO } from 'date-fns';
 
-import prismadb from '@/lib/prismadb';
-
+import useGetAllBillboards from '@/actions/billboards/use-get-all-billboards';
 import { BillboardClient } from './components/client';
 import { BillboardColumn } from './components/columns';
 
 const BillboardsPage = async ({ params }: { params: { storeId: string } }) => {
-  const billboards = await prismadb.billboard.findMany({
-    where: {
-      storeId: params.storeId,
-    },
-    orderBy: {
-      createdAt: 'desc',
-    },
-  });
+  const billboards = await useGetAllBillboards({ storeId: params.storeId });
 
   const formattedBillboards: BillboardColumn[] = billboards.map(item => ({
     id: item.id,
     label: item.label,
-    createdAt: format(item.createdAt, 'MMMM do, yyyy'),
+    createdAt: format(parseISO(String(item.createdAt)), 'MMMM do, yyyy'),
   }));
 
   return (

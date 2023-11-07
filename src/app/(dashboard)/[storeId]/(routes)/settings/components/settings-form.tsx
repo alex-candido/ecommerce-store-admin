@@ -2,7 +2,6 @@
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Store } from '@prisma/client';
-import axios from 'axios';
 import { Trash } from 'lucide-react';
 import { useParams, useRouter } from 'next/navigation';
 import { useState } from 'react';
@@ -10,6 +9,8 @@ import { useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
 import * as z from 'zod';
 
+import useDeleteStore from '@/actions/store/use-delete-store';
+import useUpdateStore from '@/actions/store/use-update-store';
 import { AlertModal } from '@/components/modals/alert-modal';
 import { ApiAlert } from '@/components/ui/api-alert';
 import { Button } from '@/components/ui/button';
@@ -30,7 +31,7 @@ const formSchema = z.object({
   name: z.string().min(2),
 });
 
-type SettingsFormValues = z.infer<typeof formSchema>;
+export type SettingsFormValues = z.infer<typeof formSchema>;
 
 interface SettingsFormProps {
   initialData: Store;
@@ -52,7 +53,7 @@ export const SettingsForm: React.FC<SettingsFormProps> = ({ initialData }) => {
   const onSubmit = async (data: SettingsFormValues) => {
     try {
       setLoading(true);
-      await axios.patch(`/api/stores/${params.storeId}`, data);
+      await useUpdateStore({ storeId: String(params.storeId), data });
       router.refresh();
       toast.success('Store updated.');
     } catch (error: any) {
@@ -65,7 +66,7 @@ export const SettingsForm: React.FC<SettingsFormProps> = ({ initialData }) => {
   const onDelete = async () => {
     try {
       setLoading(true);
-      await axios.delete(`/api/stores/${params.storeId}`);
+      await useDeleteStore({ storeId: String(params.storeId) });
       router.refresh();
       router.push('/');
       toast.success('Store deleted.');

@@ -2,14 +2,16 @@ import { api } from "@/lib/fetcher";
 
 interface IUserStoreProps {
   billboardId: string;
+  storeId: string;
 }
 
-const useGetBillboard = async ({
+const useDeleteBillboard = async ({
   billboardId,
+  storeId
 }: IUserStoreProps): Promise<BillboardData> => {
   try {
-    const url = `/api/billboards/${billboardId}`
-    const { data } = await api.get(url)
+    const url = `/api/${storeId}/billboards/${billboardId}`
+    const { data } = await api.delete(url)
 
     return data;
   } catch (error) {
@@ -20,4 +22,4 @@ const useGetBillboard = async ({
   }
 };
 
-export default useGetBillboard;
+export default useDeleteBillboard;

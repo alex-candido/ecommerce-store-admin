@@ -6,6 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
 
+import usePostCreateStore from '@/actions/store/use-post-create-store';
 import { Button } from '@/components/ui/button';
 import {
   Form,
@@ -18,10 +19,9 @@ import {
 import { Input } from '@/components/ui/input';
 import { Modal } from '@/components/ui/modal';
 import { useStoreModal } from '@/hooks/use-store-modal';
-import { api } from '@/lib/fetcher';
 import { useState } from 'react';
 
-const formSchema = z.object({
+export const formSchema = z.object({
   name: z.string().min(1),
 });
 
@@ -40,8 +40,8 @@ export const StoreModal = () => {
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       setLoading(true);
-      const response = await api.post('/api/stores', values);
-      window.location.assign(`/${response.data.id}`);
+      const response = await usePostCreateStore(values);
+      window.location.assign(`/${response.id}`);
     } catch (error) {
       toast.error('Something went wrong');
     } finally {

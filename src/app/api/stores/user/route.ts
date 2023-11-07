@@ -1,5 +1,5 @@
-import { getAllStoresByUser } from "@/db/store/get-return-store";
-import { NextRequest, NextResponse } from "next/server";
+import { getAllStoresByUser } from '@/db/store/get-return-store';
+import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(req: NextRequest) {
   try {
@@ -10,7 +10,6 @@ export async function GET(req: NextRequest) {
     }
 
     const store = await getAllStoresByUser(userId);
-
 
     return NextResponse.json(store);
   } catch (error) {

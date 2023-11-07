@@ -1,7 +1,6 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Billboard } from '@prisma/client';
 import { Trash } from 'lucide-react';
 import { useParams, useRouter } from 'next/navigation';
 import { useState } from 'react';
@@ -9,6 +8,9 @@ import { useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
 import * as z from 'zod';
 
+import useDeleteBillboard from '@/actions/billboards/use-delete-billboard';
+import usePostCreateBillboard from '@/actions/billboards/use-post-create-billboard';
+import useUpdateBillboard from '@/actions/billboards/use-update-billboard';
 import { AlertModal } from '@/components/modals/alert-modal';
 import { Button } from '@/components/ui/button';
 import {
@@ -23,17 +25,16 @@ import { Heading } from '@/components/ui/heading';
 import ImageUpload from '@/components/ui/image-upload';
 import { Input } from '@/components/ui/input';
 import { Separator } from '@/components/ui/separator';
-import { api } from '@/lib/fetcher';
 
 const formSchema = z.object({
   label: z.string().min(1),
   imageUrl: z.string().min(1),
 });
 
-type BillboardFormValues = z.infer<typeof formSchema>;
+export type BillboardFormValues = z.infer<typeof formSchema>;
 
 interface BillboardFormProps {
-  initialData: Billboard | null;
+  initialData: BillboardData | null;
 }
 
 export const BillboardForm: React.FC<BillboardFormProps> = ({
@@ -64,12 +65,12 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({
     try {
       setLoading(true);
       if (initialData) {
-        await api.patch(
-          `/api/${params.storeId}/billboards/${params.billboardId}`,
-          data,
-        );
+        await useUpdateBillboard({
+          billboardId: String(params.billboardId),
+          storeId: String(params.storeId),
+        });
       } else {
-        await api.post(`/api/${params.storeId}/billboards`, data);
+        await usePostCreateBillboard({ storeId: String(params.storeId), data });
       }
       router.refresh();
       router.push(`/${params.storeId}/billboards`);
@@ -84,9 +85,11 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({
   const onDelete = async () => {
     try {
       setLoading(true);
-      await api.delete(
-        `/api/${params.storeId}/billboards/${params.billboardId}`,
-      );
+      await useDeleteBillboard({
+        storeId: String(params.storeId),
+        billboardId: String(params.billboardId),
+      });
+
       router.refresh();
       router.push(`/${params.storeId}/billboards`);
       toast.success('Billboard deleted.');

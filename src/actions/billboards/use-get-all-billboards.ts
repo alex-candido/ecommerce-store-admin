@@ -8,15 +8,15 @@ const useGetAllBillboards = async ({
   storeId,
 }: IUserStoreProps): Promise<BillboardData[]> => {
   try {
-    const url = `/api/billboards/user?storeId=${storeId}`
-    const { data } = await api.get(url)
+    const url = `/api/${storeId}/billboards`;
+    const { data } = await api.get(url);
 
     return data;
   } catch (error) {
     if (error instanceof Error) {
-      console.log(error.message)
+      console.log(error.message);
     }
-    return []
+    return [];
   }
 };
 
