@@ -1,14 +1,18 @@
-'use client';
-
 import { format } from 'date-fns';
 
-import useGetAllBillboards from '@/actions/billboards/use-get-all-billboards';
-import { BillboardClient } from '@/app/(dashboard)/[storeId]/(routes)/billboards/components/client';
-import { BillboardColumn } from '@/app/(dashboard)/[storeId]/(routes)/billboards/components/columns';
+import prismadb from '@/lib/prismadb';
+
+import { BillboardClient } from './components/client';
+import { BillboardColumn } from './components/columns';
 
 const BillboardsPage = async ({ params }: { params: { storeId: string } }) => {
-  const billboards = await useGetAllBillboards({
-    storeId: params.storeId,
+  const billboards = await prismadb.billboard.findMany({
+    where: {
+      storeId: params.storeId,
+    },
+    orderBy: {
+      createdAt: 'desc',
+    },
   });
 
   const formattedBillboards: BillboardColumn[] = billboards.map(item => ({

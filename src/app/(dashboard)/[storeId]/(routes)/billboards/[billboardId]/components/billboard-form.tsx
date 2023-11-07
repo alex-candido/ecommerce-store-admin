@@ -2,7 +2,6 @@
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Billboard } from '@prisma/client';
-import axios from 'axios';
 import { Trash } from 'lucide-react';
 import { useParams, useRouter } from 'next/navigation';
 import { useState } from 'react';
@@ -21,8 +20,10 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Heading } from '@/components/ui/heading';
+import ImageUpload from '@/components/ui/image-upload';
 import { Input } from '@/components/ui/input';
 import { Separator } from '@/components/ui/separator';
+import { api } from '@/lib/fetcher';
 
 const formSchema = z.object({
   label: z.string().min(1),
@@ -63,12 +64,12 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({
     try {
       setLoading(true);
       if (initialData) {
-        await axios.patch(
+        await api.patch(
           `/api/${params.storeId}/billboards/${params.billboardId}`,
           data,
         );
       } else {
-        await axios.post(`/api/${params.storeId}/billboards`, data);
+        await api.post(`/api/${params.storeId}/billboards`, data);
       }
       router.refresh();
       router.push(`/${params.storeId}/billboards`);
@@ -83,7 +84,7 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({
   const onDelete = async () => {
     try {
       setLoading(true);
-      await axios.delete(
+      await api.delete(
         `/api/${params.storeId}/billboards/${params.billboardId}`,
       );
       router.refresh();
@@ -132,7 +133,14 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Background image</FormLabel>
-                <FormControl>ImageUpload</FormControl>
+                <FormControl>
+                  <ImageUpload
+                    value={field.value ? [field.value] : []}
+                    disabled={loading}
+                    onChange={url => field.onChange(url)}
+                    onRemove={() => field.onChange('')}
+                  />
+                </FormControl>
                 <FormMessage />
               </FormItem>
             )}

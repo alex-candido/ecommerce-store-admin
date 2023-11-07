@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Heading } from '@/components/ui/heading';
 import { Separator } from '@/components/ui/separator';
 
-import { BillboardColumn } from '@/app/(dashboard)/[storeId]/(routes)/billboards/components/columns';
+import { BillboardColumn } from './columns';
 
 interface BillboardClientProps {
   data: BillboardColumn[];
@@ -31,7 +31,6 @@ export const BillboardClient: React.FC<BillboardClientProps> = ({ data }) => {
         </Button>
       </div>
       <Separator />
-
       <Heading title="API" description="API Calls for Billboards" />
       <Separator />
     </>
