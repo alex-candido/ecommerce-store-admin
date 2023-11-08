@@ -1,7 +1,10 @@
-import { getAllStoresByUser } from '@/db/store/get-return-store';
+import { getFirstStoreById } from '@/db/store/get-return-store';
 import { NextRequest, NextResponse } from 'next/server';
 
-export async function GET(req: NextRequest) {
+export async function GET(
+  req: NextRequest,
+  { params }: { params: { storeId: string } },
+) {
   try {
     const userId = await req.nextUrl.searchParams.get('userId');
 
@@ -9,7 +12,7 @@ export async function GET(req: NextRequest) {
       return new NextResponse('User id is required', { status: 400 });
     }
 
-    const store = await getAllStoresByUser(userId);
+    const store = await getFirstStoreById({ storeId: params.storeId, userId });
 
     return NextResponse.json(store);
   } catch (error) {

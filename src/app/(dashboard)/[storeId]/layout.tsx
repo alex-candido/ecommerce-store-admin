@@ -1,7 +1,7 @@
 import { auth } from '@clerk/nextjs';
 import { redirect } from 'next/navigation';
 
-import useGetStore from '@/actions/use-get-store';
+import useGetStore from '@/actions/store/use-get-store';
 import Navbar from '@/components/navbar';
 
 export default async function DashboardLayout({

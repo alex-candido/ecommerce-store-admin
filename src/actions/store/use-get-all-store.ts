@@ -6,7 +6,7 @@ interface IUserStoreProps {
 
 const useGetAllStore = async ({
   userId,
-}: IUserStoreProps): Promise<StoreData[] | undefined> => {
+}: IUserStoreProps): Promise<StoreData[]> => {
   try {
     const url = `/api/stores/user?userId=${userId}`
     const { data } = await api.get(url)
@@ -16,6 +16,7 @@ const useGetAllStore = async ({
     if (error instanceof Error) {
       console.log(error.message)
     }
+    return []
   }
 };
 
