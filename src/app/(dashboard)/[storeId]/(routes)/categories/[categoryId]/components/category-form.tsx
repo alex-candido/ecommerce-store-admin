@@ -74,6 +74,7 @@ export const CategoryForm: React.FC<CategoryFormProps> = ({
         await useUpdateCategory({
           categoryId: String(params.categoryId),
           storeId: String(params.storeId),
+          data,
         });
       } else {
         await usePostCreateCategory({

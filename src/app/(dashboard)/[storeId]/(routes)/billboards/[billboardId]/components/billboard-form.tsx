@@ -68,6 +68,7 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({
         await useUpdateBillboard({
           billboardId: String(params.billboardId),
           storeId: String(params.storeId),
+          data,
         });
       } else {
         await usePostCreateBillboard({ storeId: String(params.storeId), data });
