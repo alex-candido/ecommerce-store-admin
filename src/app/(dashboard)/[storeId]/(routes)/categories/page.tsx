@@ -1,22 +1,11 @@
 import { format } from 'date-fns';
 
-import prismadb from '@/lib/prismadb';
-
+import useGetAllCategories from '@/actions/categories/use-get-all-categories';
 import { CategoriesClient } from './components/client';
 import { CategoryColumn } from './components/columns';
 
 const CategoriesPage = async ({ params }: { params: { storeId: string } }) => {
-  const categories = await prismadb.category.findMany({
-    where: {
-      storeId: params.storeId,
-    },
-    include: {
-      billboard: true,
-    },
-    orderBy: {
-      createdAt: 'desc',
-    },
-  });
+  const categories = await useGetAllCategories({ storeId: params.storeId });
 
   const formattedCategories: CategoryColumn[] = categories.map(item => ({
     id: item.id,

@@ -1,5 +1,5 @@
-import prismadb from '@/lib/prismadb';
-
+import useGetAllBillboards from '@/actions/billboards/use-get-all-billboards';
+import useGetCategory from '@/actions/categories/use-get-category';
 import { CategoryForm } from './components/category-form';
 
 const CategoryPage = async ({
@@ -7,16 +7,12 @@ const CategoryPage = async ({
 }: {
   params: { categoryId: string; storeId: string };
 }) => {
-  const category = await prismadb.category.findUnique({
-    where: {
-      id: params.categoryId,
-    },
+  const category = await useGetCategory({
+    categoryId: params.categoryId,
   });
 
-  const billboards = await prismadb.billboard.findMany({
-    where: {
-      storeId: params.storeId,
-    },
+  const billboards = await useGetAllBillboards({
+    storeId: params.storeId,
   });
 
   return (

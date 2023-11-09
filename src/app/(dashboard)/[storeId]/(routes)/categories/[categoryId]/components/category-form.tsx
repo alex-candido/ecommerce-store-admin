@@ -1,16 +1,17 @@
 'use client';
 
-import * as z from 'zod';
-import axios from 'axios';
-import { useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { Trash } from 'lucide-react';
+import { useParams, useRouter } from 'next/navigation';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
-import { Trash } from 'lucide-react';
-import { Billboard, Category } from '@prisma/client';
-import { useParams, useRouter } from 'next/navigation';
+import * as z from 'zod';
 
-import { Input } from '@/components/ui/input';
+import useDeleteCategory from '@/actions/categories/use-delete-category';
+import usePostCreateCategory from '@/actions/categories/use-post-create-category';
+import useUpdateCategory from '@/actions/categories/use-update-category';
+import { AlertModal } from '@/components/modals/alert-modal';
 import { Button } from '@/components/ui/button';
 import {
   Form,
@@ -20,9 +21,8 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import { Separator } from '@/components/ui/separator';
 import { Heading } from '@/components/ui/heading';
-import { AlertModal } from '@/components/modals/alert-modal';
+import { Input } from '@/components/ui/input';
 import {
   Select,
   SelectContent,
@@ -30,17 +30,18 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import { Separator } from '@/components/ui/separator';
 
 const formSchema = z.object({
   name: z.string().min(2),
   billboardId: z.string().min(1),
 });
 
-type CategoryFormValues = z.infer<typeof formSchema>;
+export type CategoryFormValues = z.infer<typeof formSchema>;
 
 interface CategoryFormProps {
-  initialData: Category | null;
-  billboards: Billboard[];
+  initialData: CategoryData | null;
+  billboards: BillboardData[];
 }
 
 export const CategoryForm: React.FC<CategoryFormProps> = ({
@@ -70,12 +71,15 @@ export const CategoryForm: React.FC<CategoryFormProps> = ({
     try {
       setLoading(true);
       if (initialData) {
-        await axios.patch(
-          `/api/${params.storeId}/categories/${params.categoryId}`,
-          data,
-        );
+        await useUpdateCategory({
+          categoryId: String(params.categoryId),
+          storeId: String(params.storeId),
+        });
       } else {
-        await axios.post(`/api/${params.storeId}/categories`, data);
+        await usePostCreateCategory({
+          storeId: String(params.storeId),
+          data,
+        });
       }
       router.refresh();
       router.push(`/${params.storeId}/categories`);
@@ -90,9 +94,10 @@ export const CategoryForm: React.FC<CategoryFormProps> = ({
   const onDelete = async () => {
     try {
       setLoading(true);
-      await axios.delete(
-        `/api/${params.storeId}/categories/${params.categoryId}`,
-      );
+      await useDeleteCategory({
+        categoryId: String(params.categoryId),
+        storeId: String(params.storeId),
+      });
       router.refresh();
       router.push(`/${params.storeId}/categories`);
       toast.success('Category deleted.');
