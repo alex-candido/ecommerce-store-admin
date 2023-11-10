@@ -1,13 +1,8 @@
-import prismadb from '@/lib/prismadb';
-
+import useGetColor from '@/actions/colors/use-get-color';
 import { ColorForm } from './components/color-form';
 
 const ColorPage = async ({ params }: { params: { colorId: string } }) => {
-  const color = await prismadb.color.findUnique({
-    where: {
-      id: params.colorId,
-    },
-  });
+  const color = await useGetColor({ colorId: params.colorId });
 
   return (
     <div className="flex-col">

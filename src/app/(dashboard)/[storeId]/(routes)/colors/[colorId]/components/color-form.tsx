@@ -2,7 +2,6 @@
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Color } from '@prisma/client';
-import axios from 'axios';
 import { Trash } from 'lucide-react';
 import { useParams, useRouter } from 'next/navigation';
 import { useState } from 'react';
@@ -10,6 +9,9 @@ import { useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
 import * as z from 'zod';
 
+import useDeleteColor from '@/actions/colors/use-delete-color';
+import usePostCreateColor from '@/actions/colors/use-post-create-colors';
+import useUpdateColor from '@/actions/colors/use-update-colors';
 import { AlertModal } from '@/components/modals/alert-modal';
 import { Button } from '@/components/ui/button';
 import {
@@ -31,7 +33,7 @@ const formSchema = z.object({
   }),
 });
 
-type ColorFormValues = z.infer<typeof formSchema>;
+export type ColorFormValues = z.infer<typeof formSchema>;
 
 interface ColorFormProps {
   initialData: Color | null;
@@ -60,12 +62,13 @@ export const ColorForm: React.FC<ColorFormProps> = ({ initialData }) => {
     try {
       setLoading(true);
       if (initialData) {
-        await axios.patch(
-          `/api/${params.storeId}/colors/${params.colorId}`,
+        await useUpdateColor({
+          storeId: String(params.storeId),
+          colorId: String(params.colorId),
           data,
-        );
+        });
       } else {
-        await axios.post(`/api/${params.storeId}/colors`, data);
+        await usePostCreateColor({ storeId: String(params.storeId), data });
       }
       router.refresh();
       router.push(`/${params.storeId}/colors`);
@@ -80,7 +83,10 @@ export const ColorForm: React.FC<ColorFormProps> = ({ initialData }) => {
   const onDelete = async () => {
     try {
       setLoading(true);
-      await axios.delete(`/api/${params.storeId}/colors/${params.colorId}`);
+      await useDeleteColor({
+        storeId: String(params.storeId),
+        colorId: String(params.colorId),
+      });
       router.refresh();
       router.push(`/${params.storeId}/colors`);
       toast.success('Color deleted.');

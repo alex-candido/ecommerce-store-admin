@@ -1,19 +1,13 @@
 import { format } from 'date-fns';
 
-import prismadb from '@/lib/prismadb';
 
+import useGetAllColors from '@/actions/colors/use-get-all-colors';
 import { ColorClient } from './components/client';
 import { ColorColumn } from './components/columns';
 
 const ColorsPage = async ({ params }: { params: { storeId: string } }) => {
-  const colors = await prismadb.color.findMany({
-    where: {
-      storeId: params.storeId,
-    },
-    orderBy: {
-      createdAt: 'desc',
-    },
-  });
+
+  const colors = await useGetAllColors({ storeId: params.storeId });
 
   const formattedColors: ColorColumn[] = colors.map(item => ({
     id: item.id,
