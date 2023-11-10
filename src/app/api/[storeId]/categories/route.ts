@@ -1,7 +1,9 @@
 import { auth } from '@clerk/nextjs';
 import { NextResponse } from 'next/server';
 
-import prismadb from '@/lib/prismadb';
+import { getAllCategoriesByStoreId } from '@/db/categories/get-all-categories';
+import { createCategory } from '@/db/categories/post-create-category';
+import { getFirstStoreById } from '@/db/store/get-return-store';
 
 export async function POST(
   req: Request,
@@ -30,23 +32,19 @@ export async function POST(
       return new NextResponse('Store id is required', { status: 400 });
     }
 
-    const storeByUserId = await prismadb.store.findFirst({
-      where: {
-        id: params.storeId,
-        userId,
-      },
+    const storeByUserId = await getFirstStoreById({
+      storeId: params.storeId,
+      userId,
     });
 
     if (!storeByUserId) {
       return new NextResponse('Unauthorized', { status: 405 });
     }
 
-    const category = await prismadb.category.create({
-      data: {
-        name,
-        billboardId,
-        storeId: params.storeId,
-      },
+    const category = await createCategory({
+      name,
+      billboardId,
+      storeId: params.storeId,
     });
 
     return NextResponse.json(category);
@@ -65,17 +63,7 @@ export async function GET(
       return new NextResponse('Store id is required', { status: 400 });
     }
 
-    const categories = await prismadb.category.findMany({
-      where: {
-        storeId: params.storeId,
-      },
-      include: {
-        billboard: true,
-      },
-      orderBy: {
-        createdAt: 'desc',
-      },
-    });
+    const categories = await getAllCategoriesByStoreId({storeId: params.storeId});
 
     return NextResponse.json(categories);
   } catch (error) {

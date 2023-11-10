@@ -1,4 +1,4 @@
-import prismadb from "@/lib/prismadb";
+import { getUniqueCategoryById } from "@/db/categories/get-return-category";
 import { NextResponse } from "next/server";
 
 export async function GET(
@@ -10,11 +10,7 @@ export async function GET(
       return new NextResponse("Category id is required", { status: 400 });
     }
 
-    const category = await prismadb.category.findUnique({
-      where: {
-        id: params.categoryId
-      }
-    });
+    const category = await getUniqueCategoryById({categoryId: params.categoryId})
 
     return NextResponse.json(category);
   } catch (error) {
