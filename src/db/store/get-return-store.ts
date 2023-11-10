@@ -36,10 +36,7 @@ export const getFirstStoreById = async ({
   storeId,
 }: IStoreDataProps): Promise<any> => {
   const store = await prismadb.store.findFirst({
-    where: {
-      id: storeId,
-      userId,
-    },
+    where: { id: storeId, userId },
   });
 
   if (!store) {
