@@ -1,4 +1,4 @@
-import { format } from 'date-fns';
+import { format, parseISO } from 'date-fns';
 
 import useGetAllSizes from '@/actions/sizes/use-get-all-sizes';
 import { SizesClient } from './components/client';
@@ -11,7 +11,7 @@ const SizesPage = async ({ params }: { params: { storeId: string } }) => {
     id: item.id,
     name: item.name,
     value: item.value,
-    createdAt: format(item.createdAt, 'MMMM do, yyyy'),
+    createdAt: format(parseISO(String(item.createdAt)), 'MMMM do, yyyy'),
   }));
 
   return (

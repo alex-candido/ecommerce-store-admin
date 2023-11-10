@@ -1,7 +1,9 @@
 import { auth } from '@clerk/nextjs';
 import { NextResponse } from 'next/server';
 
-import prismadb from '@/lib/prismadb';
+import { getAllSizesByStoreId } from '@/db/sizes/get-return-size';
+import { createSize } from '@/db/sizes/post-create-size';
+import { getFirstStoreById } from '@/db/store/get-return-store';
 
 export async function POST(
   req: Request,
@@ -30,24 +32,16 @@ export async function POST(
       return new NextResponse('Store id is required', { status: 400 });
     }
 
-    const storeByUserId = await prismadb.store.findFirst({
-      where: {
-        id: params.storeId,
-        userId,
-      },
+    const storeByUserId = await getFirstStoreById({
+      storeId: params.storeId,
+      userId,
     });
 
     if (!storeByUserId) {
       return new NextResponse('Unauthorized', { status: 405 });
     }
 
-    const size = await prismadb.size.create({
-      data: {
-        name,
-        value,
-        storeId: params.storeId,
-      },
-    });
+    const size = await createSize({ name, value, storeId: params.storeId });
 
     return NextResponse.json(size);
   } catch (error) {
@@ -65,14 +59,7 @@ export async function GET(
       return new NextResponse('Store id is required', { status: 400 });
     }
 
-    const sizes = await prismadb.size.findMany({
-      where: {
-        storeId: params.storeId,
-      },
-      orderBy: {
-        createdAt: 'desc',
-      },
-    });
+    const sizes = await getAllSizesByStoreId(params.storeId);
 
     return NextResponse.json(sizes);
   } catch (error) {
