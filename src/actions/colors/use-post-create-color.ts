@@ -12,6 +12,7 @@ const usePostCreateColor = async ({
 }: IColorProps): Promise<any> => {
   try {
     const url = `/api/${storeId}/colors`;
+
     return await api.post(url, data);
   } catch (error) {
     if (error instanceof Error) {

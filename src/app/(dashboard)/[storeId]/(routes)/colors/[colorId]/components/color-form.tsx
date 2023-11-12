@@ -10,7 +10,7 @@ import { toast } from 'react-hot-toast';
 import * as z from 'zod';
 
 import useDeleteColor from '@/actions/colors/use-delete-color';
-import usePostCreateColor from '@/actions/colors/use-post-create-colors';
+import usePostCreateColor from '@/actions/colors/use-post-create-color';
 import useUpdateColor from '@/actions/colors/use-update-colors';
 import { AlertModal } from '@/components/modals/alert-modal';
 import { Button } from '@/components/ui/button';
@@ -67,7 +67,9 @@ export const ColorForm: React.FC<ColorFormProps> = ({ initialData }) => {
           colorId: String(params.colorId),
           data,
         });
+        console.log('Update action');
       } else {
+        console.log('Create action');
         await usePostCreateColor({ storeId: String(params.storeId), data });
       }
       router.refresh();

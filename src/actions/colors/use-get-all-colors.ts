@@ -8,7 +8,7 @@ const useGetAllColors = async ({
   storeId,
 }: IColorsProps): Promise<ColorData[]> => {
   try {
-    const url = `/api/colors?storeId${storeId}`
+    const url = `/api/${storeId}/colors`
     const { data } = await api.get(url)
 
     return data;

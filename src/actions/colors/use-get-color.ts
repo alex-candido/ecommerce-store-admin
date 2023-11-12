@@ -6,7 +6,7 @@ interface IColorProps {
 
 const useGetColor = async ({ colorId }: IColorProps): Promise<ColorData> => {
   try {
-    const url = `/api/color/${colorId}`;
+    const url = `/api/colors/${colorId}`;
     const { data } = await api.get(url);
 
     return data;
