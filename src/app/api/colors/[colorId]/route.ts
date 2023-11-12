@@ -1,4 +1,4 @@
-import prismadb from '@/lib/prismadb';
+import { getUniqueColorById } from '@/db/colors/get-return-color';
 import { NextResponse } from 'next/server';
 
 export async function GET(
@@ -10,11 +10,7 @@ export async function GET(
       return new NextResponse('Color id is required', { status: 400 });
     }
 
-    const colors = await prismadb.color.findUnique({
-      where: {
-        id: params.colorId,
-      },
-    });
+    const colors = await getUniqueColorById({ colorId: params.colorId });
 
     return NextResponse.json(colors);
   } catch (error) {
