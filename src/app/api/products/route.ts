@@ -1,4 +1,4 @@
-import { getAllColorsByStoreId } from '@/db/colors/get-all-colors';
+import { getAllProductsByStoreId } from '@/db/products/get-all-products';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(req: NextRequest) {
@@ -9,11 +9,11 @@ export async function GET(req: NextRequest) {
       return new NextResponse('Store id is required', { status: 400 });
     }
 
-    const colors = await getAllColorsByStoreId({ storeId });
+    const products = await getAllProductsByStoreId(storeId)
 
-    return NextResponse.json(colors);
+    return NextResponse.json(products);
   } catch (error) {
-    console.log('[COLOR_GET]', error);
+    console.log('[PRODUCTS_GET]', error);
     return new NextResponse('Internal error', { status: 500 });
   }
 }

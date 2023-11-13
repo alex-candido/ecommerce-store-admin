@@ -1,27 +1,13 @@
 import { format } from 'date-fns';
 
-import prismadb from '@/lib/prismadb';
 import { formatter } from '@/lib/utils';
 
+import useGetAllOrders from '@/actions/orders/use-get-all-orders';
 import { OrderClient } from './components/client';
 import { OrderColumn } from './components/columns';
 
 const OrdersPage = async ({ params }: { params: { storeId: string } }) => {
-  const orders = await prismadb.order.findMany({
-    where: {
-      storeId: params.storeId,
-    },
-    include: {
-      orderItems: {
-        include: {
-          product: true,
-        },
-      },
-    },
-    orderBy: {
-      createdAt: 'desc',
-    },
-  });
+  const orders = await useGetAllOrders({ storeId: params.storeId });
 
   const formattedOrders: OrderColumn[] = orders.map(item => ({
     id: item.id,

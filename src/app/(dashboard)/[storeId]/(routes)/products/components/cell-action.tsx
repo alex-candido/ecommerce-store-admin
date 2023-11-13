@@ -1,6 +1,5 @@
 'use client';
 
-import axios from 'axios';
 import { Copy, Edit, MoreHorizontal, Trash } from 'lucide-react';
 import { useParams, useRouter } from 'next/navigation';
 import { useState } from 'react';
@@ -16,6 +15,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 
+import useDeleteProduct from '@/actions/products/use-delete-product';
 import { ProductColumn } from './columns';
 
 interface CellActionProps {
@@ -31,7 +31,10 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
   const onConfirm = async () => {
     try {
       setLoading(true);
-      await axios.delete(`/api/${params.storeId}/products/${data.id}`);
+      await useDeleteProduct({
+        storeId: String(params.storeId),
+        productId: data.id,
+      });
       toast.success('Product deleted.');
       router.refresh();
     } catch (error) {
