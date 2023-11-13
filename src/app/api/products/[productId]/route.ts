@@ -1,4 +1,4 @@
-import prismadb from '@/lib/prismadb';
+import { getUniqueProductById } from '@/db/products/get-return-product';
 import { NextResponse } from 'next/server';
 
 export async function GET(
@@ -10,14 +10,7 @@ export async function GET(
       return new NextResponse('Product id is required', { status: 400 });
     }
 
-    const product = await prismadb.product.findUnique({
-      where: {
-        id: params.productId,
-      },
-      include: {
-        images: true,
-      },
-    });
+    const product = await getUniqueProductById({ productId: params.productId });
 
     return NextResponse.json(product);
   } catch (error) {

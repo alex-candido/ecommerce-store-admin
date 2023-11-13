@@ -1,4 +1,4 @@
-import prismadb from '@/lib/prismadb';
+import { getAllProductsByStoreId } from '@/db/products/get-all-products';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(req: NextRequest) {
@@ -9,19 +9,7 @@ export async function GET(req: NextRequest) {
       return new NextResponse('Store id is required', { status: 400 });
     }
 
-    const products = await prismadb.product.findMany({
-      where: {
-        storeId,
-      },
-      include: {
-        category: true,
-        size: true,
-        color: true,
-      },
-      orderBy: {
-        createdAt: 'desc',
-      },
-    });
+    const products = await getAllProductsByStoreId(storeId)
 
     return NextResponse.json(products);
   } catch (error) {
