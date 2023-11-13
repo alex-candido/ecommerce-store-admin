@@ -1,4 +1,4 @@
-import prismadb from '@/lib/prismadb';
+import { getAllOrderByStoreId } from '@/db/orders/get-all-orders';
 import { NextResponse } from 'next/server';
 
 export async function GET(
@@ -10,21 +10,7 @@ export async function GET(
       return new NextResponse('Store id is required', { status: 400 });
     }
 
-    const orders = await prismadb.order.findMany({
-      where: {
-        storeId: params.storeId,
-      },
-      include: {
-        orderItems: {
-          include: {
-            product: true,
-          },
-        },
-      },
-      orderBy: {
-        createdAt: 'desc',
-      },
-    });
+    const orders = await getAllOrderByStoreId({storeId: params.storeId})
 
     return NextResponse.json(orders);
   } catch (error) {

@@ -2,7 +2,6 @@
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Category, Color, Image, Product, Size } from '@prisma/client';
-import axios from 'axios';
 import { Trash } from 'lucide-react';
 import { useParams, useRouter } from 'next/navigation';
 import { useState } from 'react';
@@ -10,6 +9,9 @@ import { useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
 import * as z from 'zod';
 
+import useDeleteProduct from '@/actions/products/use-delete-product';
+import usePostCreateProduct from '@/actions/products/use-post-create-product';
+import useUpdateProduct from '@/actions/products/use-update-product';
 import { AlertModal } from '@/components/modals/alert-modal';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -45,7 +47,7 @@ const formSchema = z.object({
   isArchived: z.boolean().default(false).optional(),
 });
 
-type ProductFormValues = z.infer<typeof formSchema>;
+export type ProductFormValues = z.infer<typeof formSchema>;
 
 interface ProductFormProps {
   initialData:
@@ -100,12 +102,13 @@ export const ProductForm: React.FC<ProductFormProps> = ({
     try {
       setLoading(true);
       if (initialData) {
-        await axios.patch(
-          `/api/${params.storeId}/products/${params.productId}`,
+        await useUpdateProduct({
+          storeId: String(params.storeId),
+          productId: String(params.productId),
           data,
-        );
+        });
       } else {
-        await axios.post(`/api/${params.storeId}/products`, data);
+        await usePostCreateProduct({ storeId: String(params.storeId), data });
       }
       router.refresh();
       router.push(`/${params.storeId}/products`);
@@ -120,7 +123,10 @@ export const ProductForm: React.FC<ProductFormProps> = ({
   const onDelete = async () => {
     try {
       setLoading(true);
-      await axios.delete(`/api/${params.storeId}/products/${params.productId}`);
+      await useDeleteProduct({
+        storeId: String(params.storeId),
+        productId: String(params.productId),
+      });
       router.refresh();
       router.push(`/${params.storeId}/products`);
       toast.success('Product deleted.');
