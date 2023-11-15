@@ -1,0 +1,26 @@
+## Gerenciamento Ramificações do Sistema
+
+- staging
+  - **Descrição**
+    - Branch de homologação
+
+- feature/creating-structures-and-patterns
+  - **Descrição**
+    - Adicionando estrutura de ferramentas de análise e padrões de código;
+
+- feature/creating-directory-and-page-structure
+  - **Descrição**
+    - Adicionando estrutura de diretórios, pastas e arquivos do projeto;
+
+- feature/creating-project-settings-structure
+  - **Descrição**
+    - Adicionando estrutura de configurações do projeto;
+
+- feature/creating-clerk-authentication-admin
+  - **Descrição**
+    - Adicionando estrutura de autenticação e gerenciamento de usuários com clerk.
+
+- feature/creating-modal-component-admin
+  - **Descrição**
+    - Adicionando estrutura de modal component shadcn/ui.
+
