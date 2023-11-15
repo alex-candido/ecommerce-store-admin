@@ -102,9 +102,9 @@ export async function GET(
 
     const products = await getAllProducts({
       storeId: params.storeId,
-      categoryId: String(categoryId),
-      colorId: String(colorId),
-      sizeId: String(sizeId),
+      categoryId: categoryId,
+      colorId: colorId,
+      sizeId: sizeId,
       isFeatured: isFeatured,
     });
 
@@ -114,3 +114,5 @@ export async function GET(
     return new NextResponse('Internal error', { status: 500 });
   }
 }
+
+

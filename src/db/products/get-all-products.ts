@@ -2,9 +2,9 @@ import prismadb from '@/lib/prismadb';
 
 interface IProductDataProps {
   storeId: string;
-  categoryId: string;
-  colorId: string;
-  sizeId: string;
+  categoryId: string | undefined;
+  colorId: string | undefined;
+  sizeId: string | undefined;
   isFeatured: string | null;
 }
 

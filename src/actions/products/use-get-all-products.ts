@@ -8,7 +8,7 @@ const useGetAllProducts = async ({
   storeId,
 }: IProductsProps): Promise<ProductData[]> => {
   try {
-    const url = `/api/products?storeId=${storeId}`
+    const url = `/api/${storeId}/products/store`
     const { data } = await api.get(url)
 
     return data;

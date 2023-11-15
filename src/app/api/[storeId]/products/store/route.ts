@@ -1,15 +1,18 @@
+import { NextResponse } from 'next/server';
+
 import { getAllProductsByStoreId } from '@/db/products/get-all-products';
-import { NextRequest, NextResponse } from 'next/server';
 
-export async function GET(req: NextRequest) {
+export async function GET(
+  req: Request,
+  { params }: { params: { storeId: string } },
+) {
   try {
-    const storeId = await req.nextUrl.searchParams.get('storeId');
 
-    if (!storeId) {
+    if (!params.storeId) {
       return new NextResponse('Store id is required', { status: 400 });
     }
 
-    const products = await getAllProductsByStoreId(storeId)
+    const products = await getAllProductsByStoreId(params.storeId)
 
     return NextResponse.json(products);
   } catch (error) {
