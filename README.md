@@ -1,36 +1,77 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Gerenciamento Ramificações do Sistema
 
-## Getting Started
+- staging
+  - **Descrição**
+    - Branch de homologação
 
-First, run the development server:
+- feature/creating-structures-and-patterns
+  - **Descrição**
+    - Adicionando estrutura de ferramentas de análise e padrões de código;
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- feature/creating-directory-and-page-structure
+  - **Descrição**
+    - Adicionando estrutura de diretórios, pastas e arquivos do projeto;
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- feature/creating-project-settings-structure
+  - **Descrição**
+    - Adicionando estrutura de configurações do projeto;
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- feature/creating-clerk-authentication-admin
+  - **Descrição**
+    - Adicionando estrutura de autenticação e gerenciamento de usuários com clerk.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+- feature/creating-modal-component-admin
+  - **Descrição**
+    - Adicionando estrutura de modal component shadcn/ui.
 
-## Learn More
+- feature/creating-form-component-admin
+  - **Descrição**
+    - Criando componente formulário admin.
 
-To learn more about Next.js, take a look at the following resources:
+- feature/creating-prisma-planetscale-database-setup
+  - **Descrição**
+    - Criando prisma planetscale database setup.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- feature/creating-dashboard-setup-admin
+  - **Descrição**
+    - Criando painel setup admin.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+- feature/creating-navigationbar-admin
+  - **Descrição**
+      - Criando barra de navegação admin.
 
-## Deploy on Vercel
+- feature/creating-settings-page-admin
+  - **Descrição**
+      - Criando página de configurações-admin.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- feature/creating-billboards-entity-admin
+  - **Descrição**
+      - Criando administrador de entidade outdoors.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- feature/creating-data-table-admin
+  - **Descrição**
+    - Criando administrador de tabela de dados.
+
+- feature/creating-categories-entity-admin
+  - **Descrição**
+      - Criando categorias entidade administrador.
+
+- feature/creating-sizes-entity-admin
+  - **Descrição**
+    - Criando criando tamanhos entidade administrador.
+
+- feature/creating-colors-entity-admin
+  - **Descrição**
+      - Criando cores entidade administrador.
+
+- feature/creating-products-entity-admin
+  - **Descrição**
+      - Criando produtos entidade administrador.
+
+- feature/creating-orders-entity-admin
+  - **Descrição**
+      - Criando pedidos entidade administrador.
+
+- feature/creating-environment-setup-and-features-products
+  - **Descrição**
+      - Criando produtos de configuração e recursos de ambiente.
